@@ -1,0 +1,47 @@
+
+    {% extends 'base.html.twig' %}
+    {% block title %}
+        Bienvenue sur le meilleur réseau d'appartements
+    {% endblock %}
+    {% block body %}
+    <div class="container">
+        <div class="jumbotron testdav mt-3">
+            <h1 class="display-3 text-white">Bienvenue sur ServeBNB !!</h1>
+            <p class="lead text-white">Nous mettons en relations les voyageurs et les propriétaires qui veulent profiter d'opprtunités et gagner de l'argent en proposant leur bien à la location!</p>
+            <hr class="my-4">
+            <p>Vous etes voyageurs et vous voulez voir ou vous pourrez logez pendant vos vacances?</p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="{{ path('ads_index') }}" role="button">Voir nos annonces !</a>
+            </p>
+        </div>
+        <h2 class="h1 my-5">Nos appartements stars</h2>
+
+        <div class="row">
+            {% for data in ads %}
+                {% include 'ad/_ad.html.twig' with {'ad': data.annonce} %}
+            {% endfor %}
+        </div>
+
+        <h2 class="h1 my-5">Nos propriétaires stars !</h2>
+        <div class="row">
+            {% for data in users %}
+            <div class="col md-6">
+                <div class="card border-secondary mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">{{ data.user.fullName }}</h4>
+
+                        <hr>
+
+                        <div class="card-text">
+                            <img src="{{ data.user.picture }}" alt="avatar de {{ data.user.fullName }}">
+                            <p>{{ data.user.introduction }}</p>
+                            <a href="{{ path('user_show', {'slug': data.user.slug}) }}" class="btn btn-success float-right">En savoir plus !</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}
+
